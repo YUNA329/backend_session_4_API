@@ -11,20 +11,20 @@ def poll_list(request):
         sort_by = request.GET.get('sort_by', 'latest')
 
         if sort_by == 'latest':
-            polls = Poll.objects.all().order_by('-created_at')
+            polls = Poll.objects.all().order_by('-createdAt')
         elif sort_by == 'oldest':
-            polls = Poll.objects.all().order_by('created_at')
+            polls = Poll.objects.all().order_by('createdAt')
         elif sort_by == 'agree':
             polls = Poll.objects.all().order_by('agree')
         elif sort_by == 'disagree':
             polls = Poll.objects.all().order_by('disagree')
         else:
-            polls = Poll.objects.all().order_by('-created_at')
+            polls = Poll.objects.all().order_by('-createdAt')
 
         serializer = PollSerializer(polls, many=True)
         return Response(serializer.data, status = status.HTTP_200_OK)
     elif request.method == 'POST':
-        serializer = PollRequestSerializer(data=request.data)
+        serializer = PollSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status = status.HTTP_201_CREATED)
@@ -37,7 +37,7 @@ def poll_detail(request, id):
         serializer = PollSerializer(poll)
         return Response(serializer.data, status = status.HTTP_200_OK)
     elif request.method == 'PUT':
-         serializer = PollRequestSerializer(poll, data=request.data)
+         serializer = PollSerializer(poll, data=request.data)
          if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
