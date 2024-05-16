@@ -2,18 +2,18 @@ from rest_framework import serializers
 from polls.models import Poll
 
 class PollSerializer(serializers.ModelSerializer):
-    agree_rate = serializers.SerializerMethodField()
-    disagree_rate = serializers.SerializerMethodField()
+    agreeRate = serializers.SerializerMethodField()
+    disagreeRate = serializers.SerializerMethodField()
     
     class Meta:
         model = Poll
-        fields = ['id','title', 'description', 'agree', 'disagree', 'agree_rate', 'disagree_rate', 'created_at']
+        fields = ['id','title', 'description', 'agree', 'disagree', 'agreeRate', 'disagreeRate', 'createdAt']
     
-    def get_agree_rate(self,obj):
+    def get_agreeRate(self,obj):
         total_votes = obj.agree + obj.disagree
         return obj.agree / total_votes if total_votes != 0 else 0
     
-    def get_disagree_rate(self,obj):
+    def get_disagreeRate(self,obj):
         total_votes = obj.agree + obj.disagree
         return obj.disagree / total_votes if total_votes != 0 else 0
         
