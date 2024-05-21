@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Poll
 from .serializers import PollSerializer
-from .serializers import PollRequestSerializer
 
 @api_view(['GET', 'POST'])
 def poll_list(request):
